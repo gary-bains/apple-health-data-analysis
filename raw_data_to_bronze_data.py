@@ -6,6 +6,16 @@ import sys
 
 raw_file = 'raw_data/export.xml'
 bronze_file = 'bronze_data/records.jsonl'
+relevant_year = '2025'
+relevant_record_types = [
+    'HKQuantityTypeIdentifierBodyMass',
+    'HKQuantityTypeIdentifierLeanBodyMass',
+    'HKQuantityTypeIdentifierBodyFatPercentage',
+    'HKQuantityTypeIdentifierHeartRate',
+    'HKQuantityTypeIdentifierRestingHeartRate',
+    'HKQuantityTypeIdentifierWalkingHeartRateAverage',
+    'HKQuantityTypeIdentifierHeartRateVariabilitySDNN',
+]
 
 
 def parse_health_export() -> tuple[list[dict], list[str]]:
@@ -21,10 +31,15 @@ def parse_health_export() -> tuple[list[dict], list[str]]:
     return records, record_types
 
 
+def is_record_relevant(record: dict) -> bool:
+    return record['creationDate'].startswith(relevant_year) and record['type'] in relevant_record_types
+
+
 def write_all_records_json_file(records: list[dict]):
     with open(bronze_file, 'w') as txt_file:
         for record in records:
-            txt_file.write(json.dumps(record) + '\n')
+            if is_record_relevant(record):
+                txt_file.write(json.dumps(record) + '\n')
 
 
 def main() -> int:
