@@ -1,3 +1,6 @@
 raw_data/*
 bronze_data/*
 silver_data/*
+
+# Mac specific
+.DS_Store

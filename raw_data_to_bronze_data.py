@@ -44,6 +44,7 @@ def write_all_records_json_file(records: list[dict]):
 
 def main() -> int:
     records, record_types = parse_health_export()
+    print('Found following record types')
     print(record_types)
 
     print('Writing JSONL file...')
