@@ -27,3 +27,4 @@ This project aims to use the Apple Health data from the Apple watch and Withings
 * Export the Apple Health data and unzip it
 * Copy the **export.xml** from Apple Health export to `raw_data/export.xml`
 * Run `poetry run python raw_data_to_bronze_data.py`
+* Run `poetry run jupyter notebook`
