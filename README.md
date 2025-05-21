@@ -37,9 +37,9 @@ This project aims to use the Apple Health data from the Apple watch and Withings
 ## Process Flow Diagram
 ```mermaid
 graph TD
-    A[Raw Data (raw_data/export.xml)] -->|`raw_data_to_bronze_data.py`<br/>XML to JSONL<br/>Filter year 2025+<br/>Filter record types| B(Bronze Data (bronze_data/records.jsonl));
-    B -->|`bronze_data_to_silver.ipynb`<br/>JSONL to CSVs<br/>Drop unnecessary columns<br/>Split by metric| C(Silver Data (silver_data/*.csv));
-    C -->|`silver_data_to_gold.ipynb`<br/>Refine CSVs<br/>Daily mean aggregation<br/>Interpolate missing values<br/>Add 'on diet' metric| D(Gold Data (gold_data/*.csv));
+    A[Raw Data (raw_data/export.xml)] -->|"raw_data_to_bronze_data.py<br/>XML to JSONL<br/>Filter year 2025+<br/>Filter record types"| B(Bronze Data (bronze_data/records.jsonl));
+    B -->|"bronze_data_to_silver.ipynb<br/>JSONL to CSVs<br/>Drop unnecessary columns<br/>Split by metric"| C(Silver Data (silver_data/*.csv));
+    C -->|"silver_data_to_gold.ipynb<br/>Refine CSVs<br/>Daily mean aggregation<br/>Interpolate missing values<br/>Add 'on diet' metric"| D(Gold Data (gold_data/*.csv));
 
     subgraph "Stage 1: Raw to Bronze"
         A
