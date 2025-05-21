@@ -1,6 +1,6 @@
 # Apple Health Data Analysis
 
-This project aims to use the Apple Health data from the Apple watch and Withings smart scale to do analysie how the health markers change quantatively based on my ditery changes
+This project aims to use the Apple Health data from the Apple watch and Withings smart scale to do analysis how the health markers change quantitively based on my dietary changes
 
 ## Overview
 * Apple Health on an iPhone is a teasuretrove of data especially if pared with devices like Apple Watch and smart scale
@@ -15,8 +15,16 @@ This project aims to use the Apple Health data from the Apple watch and Withings
         * RestingHeartRate
         * WalkingHeartRateAverage
         * HeartRateVariabilitySDNN
-* This gives us a more managable 21 MB file in bronze_data
-* 
+* This gives us a more managable 21 MB line seprated JSON file in bronze_data
+* This line seprated JSON data is futher refined by dropping unessary columns and spliting the data for each metric into it's own CSV file
+* These CSV data is then futher refined by
+    * using mean value of the metric for an entire day
+    * interpolating missing values
+    * adding 'on diet' metric
+* In future iteration I could
+    * quantify the changes in other metircs w.r.t.'on diet'
+    * add more metrics from raw data for analysis
+    * do more advanced aggrigation of metrics instead of current simple average for daily intervals
 
 ## Setup steps
 * Make sure `python3` and `poetry` are installed in your system
