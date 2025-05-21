@@ -36,7 +36,7 @@ This project aims to use the Apple Health data from the Apple watch and Withings
 
 ## Process Flow Diagram
 ```mermaid
-graph LR
+graph TB
     A["Raw Data (raw_data/export.xml)"] -->|"raw_data_to_bronze_data.py"| B["Bronze Data (bronze_data/records.jsonl)"]
     B -->|"bronze_data_to_silver.ipynb"| C["Silver Data (silver_data/*.csv)"]
     C -->|"silver_data_to_gold.ipynb"| D["Gold Data (gold_data/*.csv)"]
