@@ -21,10 +21,6 @@ This project aims to use the Apple Health data from the Apple watch and Withings
     * using mean value of the metric for an entire day
     * interpolating missing values
     * adding 'on diet' metric
-* In future iteration I could
-    * quantify the changes in other metrics w.r.t.'on diet'
-    * add more metrics from raw data for analysis
-    * do more advanced aggregation of metrics instead of current simple average for daily intervals
 
 ## Setup steps
 * Make sure `python3` and `poetry` are installed in your system
@@ -37,3 +33,29 @@ This project aims to use the Apple Health data from the Apple watch and Withings
 * Run `poetry run jupyter notebook`
 * Run all the code blocks in the notebook `bronze_data_to_silver.ipynb`
 * Run all the code blocks in the notebook `silver_data_to_gold.ipynb`
+
+## Process Flow Diagram
+```mermaid
+graph TD
+    A[Raw Data (raw_data/export.xml)] -->|`raw_data_to_bronze_data.py`<br/>XML to JSONL<br/>Filter year 2025+<br/>Filter record types| B(Bronze Data (bronze_data/records.jsonl));
+    B -->|`bronze_data_to_silver.ipynb`<br/>JSONL to CSVs<br/>Drop unnecessary columns<br/>Split by metric| C(Silver Data (silver_data/*.csv));
+    C -->|`silver_data_to_gold.ipynb`<br/>Refine CSVs<br/>Daily mean aggregation<br/>Interpolate missing values<br/>Add 'on diet' metric| D(Gold Data (gold_data/*.csv));
+
+    subgraph "Stage 1: Raw to Bronze"
+        A
+        B
+    end
+    subgraph "Stage 2: Bronze to Silver"
+        B
+        C
+    end
+    subgraph "Stage 3: Silver to Gold"
+        C
+        D
+    end
+```
+
+## Future Iterations
+* Quantify the changes in other metrics w.r.t.'on diet'.
+* Add more metrics from raw data for analysis.
+* Do more advanced aggregation of metrics instead of current simple average for daily intervals.
